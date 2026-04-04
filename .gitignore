@@ -26,8 +26,10 @@ build/
 .next/
 .turbo/
 coverage/
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
 
 # caches
 .cache/
 .parcel-cache/
-
