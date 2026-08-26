@@ -1,46 +1,70 @@
-# kick75-customizer-app
+# Kick75 Customizer + Codex Command Center
 
-Kick75 Customizer is now a minimal web-first MVP scaffold for a NuPhy Kick75 configuration tool. The current implementation is intentionally local-first: it loads the real Kick75 VIA definition, normalizes it into typed app state, renders the physical layout from the official schema, exposes the official lighting menu, and supports JSON export for future persistence.
+A public, local-first project for understanding, restoring, and extending a NuPhy Kick75 keyboard.
 
-## Current status
+The repository has two connected lanes:
 
-- Frontend stack: Vite + React + TypeScript
-- Data model: separate board-definition parser and narrow imported-profile parser
-- Current screens: Overview, Keymap, Lighting, Import/Export
-- Tests: board-definition parsing plus supported/unsupported profile import coverage
-- Important limitation: profile import in v1 only supports JSON files with explicit layer arrays aligned to the normalized Kick75 board key order
+1. **Kick75 Customizer** — the existing Vite/React/TypeScript app for inspecting the real Kick75 VIA definition.
+2. **Codex Command Center** — the verified QMK firmware and macOS helpers that turn the Kick75 into a physical controller for Codex tasks.
 
-## Local run
+## Codex Command Center v1.0
 
-1. Install dependencies: `npm install`
-2. Start the dev server: `npm run dev`
-3. Run tests: `npm run test`
-4. Build production assets: `npm run build`
+The current hardware build includes:
 
-## MVP structure
+- a red KITT scanner while Codex mode is active;
+- F1–F4 navigation for the first four pinned Codex tasks;
+- live F1–F4 status colors for assigned, working, completed, attention, and error states;
+- F5–F12 shortcuts for common Codex actions;
+- a knob that scrolls the Codex conversation sidebar;
+- knob-press reasoning control;
+- isolated indicator lighting for Codex controls;
+- normal keyboard behavior and saved VIA settings outside Codex mode.
+
+Start with the [complete feature report](docs/codex-command-center.md) or the [recovery guide](docs/recovery.md). The verified source snapshot is under [firmware](firmware/README.md), and the local status/sidebar bridge is under [helpers/macos](helpers/macos/README.md).
+
+## Current customizer app
+
+- Frontend: Vite + React + TypeScript
+- Data model: board-definition parser plus a narrow imported-profile parser
+- Screens: Overview, Keymap, Lighting, Import/Export
+- Tests: Kick75 definition parsing and supported/unsupported profile imports
+- Limitation: profile import currently requires explicit layer arrays aligned to the normalized Kick75 key order
+
+### Local app commands
+
+```bash
+npm install
+npm run dev
+npm run test
+npm run build
+```
+
+## Repository layout
 
 ```text
 .
-├── src/
-│   ├── app/              # app shell and screen switching
-│   ├── components/       # keyboard rendering components
-│   ├── content/          # app-consumable JSON inputs
-│   ├── lib/via/          # parser and typed data model
-│   └── styles/           # global CSS
-├── tests/                # parser-focused tests
-├── content/              # raw source material and references
-└── docs/                 # planning and architecture notes
+├── docs/                 # durable feature, recovery, and roadmap records
+├── firmware/             # verified Kick75 QMK source snapshot
+├── helpers/macos/        # Codex status and sidebar bridge source
+├── scripts/              # reproducible helper build scripts
+├── src/                  # existing customizer application
+└── tests/                # customizer parser tests
 ```
 
-## What needs to happen next
+## Safety and compatibility
 
-- Import a real VIA-style backup/profile with explicit layer arrays if you want assignment-aware inspection
-- Keep editing out of scope until a safe round-trip profile format is confirmed
-- Add import support and profile persistence
-- Keep firmware-aware logic isolated from the UI layer
+- This is an unofficial community project and is not affiliated with NuPhy or OpenAI.
+- The firmware target is **NuPhy Kick75 ANSI QMK/VIA** with USB IDs `19F5:32D5`.
+- Live status updates require wired USB. Normal keyboard input can continue to use the keyboard's supported connection modes.
+- Codex desktop shortcuts and local state formats can change. Each release records the tested behavior and source revision.
+- Never commit API keys, personal task databases, device identifiers, or machine-specific paths.
 
-## Notes on source material
+## Project direction
 
-- [`Kick75 app.make`](/Users/morningstar/Documents/GitHub/kick75-customizer-app/Kick75%20app.make) is treated as design/reference input only
-- Do not treat its internal generated-code references as authoritative source files
-- Put additional keyboard reference files under `content/assets/reference/` if you need more confirmed labels or capability checks beyond the official VIA file
+Stable behavior is recorded as a release before experimental work is added. Planned additions—including three manual Govee modes on Home, Page Up, and Page Down—remain in the [roadmap](docs/roadmap.md) until implemented and physically verified.
+
+## License and attribution
+
+The project is distributed under GPL-2.0-or-later to remain compatible with the QMK-derived firmware. See [LICENSE](LICENSE) and [third-party notices](THIRD_PARTY_NOTICES.md).
+
+Created and maintained by [NovaHelpsUnMe](https://github.com/NovaHelpsUnMe).
