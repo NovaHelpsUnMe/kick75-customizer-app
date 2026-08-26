@@ -1,59 +1,70 @@
-# kick75-customizer-app
+# Kick75 Customizer + Codex Command Center
 
-This repository is initialized as a content-ready baseline so work can start immediately without redoing structure later. The current setup is intentionally framework-agnostic: it supports planning, content authoring, asset intake, and application code once the implementation stack is chosen.
+A public, local-first project for understanding, restoring, and extending a NuPhy Kick75 keyboard.
 
-## Current repo layout
+The repository has two connected lanes:
+
+1. **Kick75 Customizer** — the existing Vite/React/TypeScript app for inspecting the real Kick75 VIA definition.
+2. **Codex Command Center** — the verified QMK firmware and macOS helpers that turn the Kick75 into a physical controller for Codex tasks.
+
+## Codex Command Center v1.0
+
+The current hardware build includes:
+
+- a red KITT scanner while Codex mode is active;
+- F1–F4 navigation for the first four pinned Codex tasks;
+- live F1–F4 status colors for assigned, working, completed, attention, and error states;
+- F5–F12 shortcuts for common Codex actions;
+- a knob that scrolls the Codex conversation sidebar;
+- knob-press reasoning control;
+- isolated indicator lighting for Codex controls;
+- normal keyboard behavior and saved VIA settings outside Codex mode.
+
+Start with the [complete feature report](docs/codex-command-center.md) or the [recovery guide](docs/recovery.md). The verified source snapshot is under [firmware](firmware/README.md), and the local status/sidebar bridge is under [helpers/macos](helpers/macos/README.md).
+
+## Current customizer app
+
+- Frontend: Vite + React + TypeScript
+- Data model: board-definition parser plus a narrow imported-profile parser
+- Screens: Overview, Keymap, Lighting, Import/Export
+- Tests: Kick75 definition parsing and supported/unsupported profile imports
+- Limitation: profile import currently requires explicit layer arrays aligned to the normalized Kick75 key order
+
+### Local app commands
+
+```bash
+npm install
+npm run dev
+npm run test
+npm run build
+```
+
+## Repository layout
 
 ```text
 .
-├── content/
-│   ├── assets/
-│   │   ├── images/
-│   │   └── reference/
-│   └── copy/
-├── docs/
-│   ├── architecture/
-│   └── content/
-├── public/
-│   ├── icons/
-│   └── images/
-├── scripts/
-├── src/
-│   ├── app/
-│   ├── components/
-│   ├── content/
-│   ├── lib/
-│   └── styles/
-└── tests/
+├── docs/                 # durable feature, recovery, and roadmap records
+├── firmware/             # verified Kick75 QMK source snapshot
+├── helpers/macos/        # Codex status and sidebar bridge source
+├── scripts/              # reproducible helper build scripts
+├── src/                  # existing customizer application
+└── tests/                # customizer parser tests
 ```
 
-## Directory intent
+## Safety and compatibility
 
-- `content/`: raw content inputs, copy, reference assets, and non-runtime source material.
-- `content/assets/images/`: source images before optimization or app integration.
-- `content/assets/reference/`: inspiration, design references, and source attachments.
-- `content/copy/`: product copy, page copy, and structured text drafts.
-- `docs/`: project decisions, architecture notes, content plans, and implementation handoff material.
-- `docs/architecture/`: technical planning, system notes, and stack decisions.
-- `docs/content/`: content outlines, briefs, editorial notes, and publishing requirements.
-- `public/`: runtime-served static files for the eventual app.
-- `public/icons/`: shipped icons and app-facing static icon assets.
-- `public/images/`: optimized images intended to be served directly by the app.
-- `scripts/`: utility scripts for setup, transforms, imports, or local automation.
-- `src/`: application source once the stack is selected.
-- `src/app/`: top-level app entrypoints, routes, or screens.
-- `src/components/`: reusable UI components.
-- `src/content/`: app-consumable structured content or transformed content modules.
-- `src/lib/`: shared utilities, helpers, and non-UI application logic.
-- `src/styles/`: global styles, tokens, and theming.
-- `tests/`: focused tests once implementation begins.
+- This is an unofficial community project and is not affiliated with NuPhy or OpenAI.
+- The firmware target is **NuPhy Kick75 ANSI QMK/VIA** with USB IDs `19F5:32D5`.
+- Live status updates require wired USB. Normal keyboard input can continue to use the keyboard's supported connection modes.
+- Codex desktop shortcuts and local state formats can change. Each release records the tested behavior and source revision.
+- Never commit API keys, personal task databases, device identifiers, or machine-specific paths.
 
-## Working rules
+## Project direction
 
-- Put raw inputs in `content/` and only ship optimized or application-ready assets from `public/` or `src/content/`.
-- Keep planning notes in `docs/` so repo intent stays explicit as the app takes shape.
-- Add a framework only when the stack decision is made; this baseline is meant to avoid premature lock-in.
+Stable behavior is recorded as a release before experimental work is added. Planned additions—including three manual Govee modes on Home, Page Up, and Page Down—remain in the [roadmap](docs/roadmap.md) until implemented and physically verified.
 
-## Recommended next step
+## License and attribution
 
-Choose the implementation stack for `src/` before adding package manager files. If the target is a web app, the next clean move is to initialize the chosen framework into this existing structure instead of rebuilding the repo from scratch.
+The project is distributed under GPL-2.0-or-later to remain compatible with the QMK-derived firmware. See [LICENSE](LICENSE) and [third-party notices](THIRD_PARTY_NOTICES.md).
+
+Created and maintained by [NovaHelpsUnMe](https://github.com/NovaHelpsUnMe).

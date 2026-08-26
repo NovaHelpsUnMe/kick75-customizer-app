@@ -1,0 +1,6 @@
+{
+  "name": "Unsupported Demo",
+  "layers": {
+    "base": ["KC_ESC", "KC_1"]
+  }
+}
