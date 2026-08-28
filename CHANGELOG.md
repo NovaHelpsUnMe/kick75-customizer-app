@@ -1,28 +1,12 @@
 # Changelog
 
-## 1.0.0 — 2026-08-25
+## Unreleased
 
-First durable public record of the verified Kick75 Codex Command Center.
+- Split the Codex Command Center firmware, macOS helpers, recovery documentation, and release ownership into the dedicated [kick75-codex-command-center](https://github.com/NovaHelpsUnMe/kick75-codex-command-center) repository.
+- Kept this repository focused on the Kick75 customizer application, VIA definition parsing, profile import and export, and keyboard visualization.
 
-### Firmware
+## 0.1.0
 
-- Added Codex layer 6 and reasoning layer 7.
-- Added the full-keyboard red KITT scanner with isolated control/status LEDs.
-- Added F1–F4 pinned-task navigation and runtime status colors.
-- Added F5–F12 Codex shortcuts.
-- Added Codex sidebar and reasoning knob modes.
-- Preserved normal RGB and VIA behavior outside Codex mode.
-
-### macOS integration
-
-- Added read-only local Codex state derivation.
-- Added native Raw HID status delivery for the Kick75.
-- Added Codex-frontmost sidebar scrolling.
-- Added 18 focused status tests.
-- Removed the obsolete duplicate Python LaunchAgent from the installed setup.
-
-### Documentation
-
-- Added feature, recovery, architecture, privacy, attribution, and roadmap records.
-- Recorded the exact source revision and stable firmware checksum.
-
+- Added the Vite, React, and TypeScript customizer application.
+- Added Kick75 VIA definition parsing and keyboard visualization.
+- Added supported and unsupported imported-profile validation tests.
